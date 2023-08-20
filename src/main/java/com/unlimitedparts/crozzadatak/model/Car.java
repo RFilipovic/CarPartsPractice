@@ -1,6 +1,6 @@
 package com.unlimitedparts.crozzadatak.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +14,16 @@ public class Car {
     private String name;
     @ManyToOne
     @JoinColumn(name = "brand_id")
+    @JsonBackReference
     private Brand brand;
 
-    @ManyToMany(mappedBy = "cars")
-    private List<CarPart> carParts = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "car_part_car",
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_part_id")
+    )
+    private List<CarPart> carParts;
 
     public Car(){
 

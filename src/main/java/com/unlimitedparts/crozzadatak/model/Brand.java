@@ -1,5 +1,6 @@
 package com.unlimitedparts.crozzadatak.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,7 +13,8 @@ public class Brand {
     @Column(name = "brand_id")
     private Long brandId;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Car> cars;
 
     @Column(name = "brand_name")

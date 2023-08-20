@@ -1,4 +1,6 @@
 package com.unlimitedparts.crozzadatak.rest;
+import com.unlimitedparts.crozzadatak.DTO.BrandDTO;
+import com.unlimitedparts.crozzadatak.model.Brand;
 import com.unlimitedparts.crozzadatak.request.CreateBrandRequest;
 import com.unlimitedparts.crozzadatak.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/car-brand")
 public class BrandController {
 
-    private BrandService brandService;
+    private final BrandService brandService;
 
     @Autowired
     public BrandController(BrandService brandService){
@@ -23,6 +25,15 @@ public class BrandController {
             return ResponseEntity.ok("Successfully added brand.");
         }
         return ResponseEntity.badRequest().body("Could not add brand.");
+    }
+
+    @GetMapping("/{brandId}")
+    public ResponseEntity<BrandDTO> getBrandById(@PathVariable Long brandId){
+        BrandDTO dto = brandService.getBrandById(brandId);
+        if (dto != null){
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

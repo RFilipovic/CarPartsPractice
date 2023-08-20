@@ -1,5 +1,4 @@
 package com.unlimitedparts.crozzadatak.request;
-
 import java.util.List;
 
 public class CreateCarRequest {
@@ -16,8 +15,8 @@ public class CreateCarRequest {
         return carPartIds;
     }
 
-    public void setCarPartIds(List<Long> carId) {
-        this.carPartIds = carId;
+    public void setCarPartIds(List<Long> carPartIds) {
+        this.carPartIds = carPartIds;
     }
 
     public Long getBrandId() {

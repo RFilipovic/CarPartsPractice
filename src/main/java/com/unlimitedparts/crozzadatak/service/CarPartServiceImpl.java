@@ -1,4 +1,5 @@
 package com.unlimitedparts.crozzadatak.service;
+import com.unlimitedparts.crozzadatak.DTO.CarPartDTO;
 import com.unlimitedparts.crozzadatak.model.Car;
 import com.unlimitedparts.crozzadatak.model.CarPart;
 import com.unlimitedparts.crozzadatak.repository.CarPartRepository;
@@ -8,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CarPartServiceImpl implements CarPartService{
 
-    private CarPartRepository carPartRepository;
+    private final CarPartRepository carPartRepository;
 
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Autowired
     public CarPartServiceImpl(CarPartRepository carPartRepository, CarRepository carRepository){
@@ -23,11 +25,6 @@ public class CarPartServiceImpl implements CarPartService{
         this.carRepository = carRepository;
     }
 
-
-    @Override
-    public CarPart getBySerialNumber(String serialNumber) {
-        return carPartRepository.getCarPartBySerialNumber(serialNumber);
-    }
 
     @Override
     public CarPart addCarPart(CreateCarPartRequest carPartRequest) {
@@ -41,19 +38,58 @@ public class CarPartServiceImpl implements CarPartService{
 
         carPart.setSerialNumber(serialNumber);
         carPart.setDateOfCreation(date);
-        carPart.setCars(cars);
+
+        for (Car car : cars){
+            carPart.addCar(car);
+        }
 
         return carPartRepository.save(carPart);
     }
 
+
     @Override
-    public CarPart getCarPartByDateOfCreation(LocalDate dateOfCreation) {
-        return carPartRepository.getCarPartByDateOfCreation(dateOfCreation);
+    public CarPartDTO getCarPartById(Long id) {
+        CarPart carPart = carPartRepository.getCarPartById(id);
+        if (carPart != null){
+            CarPartDTO dto = new CarPartDTO();
+            dto.setId(carPart.getId());
+            dto.setSerialNumber(carPart.getSerialNumber());
+            dto.setDateOfCreation(carPart.getDateOfCreation());
+            return dto;
+        }
+        return null;
     }
 
     @Override
-    public CarPart getCarPartById(Long id) {
-        return carPartRepository.getCarPartById(id);
+    public CarPartDTO getCarPartBySerialNumber(String serialNumber) {
+        CarPart carPart = carPartRepository.getCarPartBySerialNumber(serialNumber);
+        if (carPart != null){
+            return getCarPartById(carPart.getId());
+        }
+        return null;
+    }
+
+    @Override
+    public List<CarPartDTO> getCarPartByDateOfCreation(LocalDate dateOfCreation) {
+        List<CarPart> carParts = carPartRepository.getAllByDateOfCreation(dateOfCreation);
+        return getCarPartDTOS(carParts);
+    }
+
+    private List<CarPartDTO> getCarPartDTOS(List<CarPart> carParts) {
+        if (carParts != null){
+            List<CarPartDTO> carPartDTOS = new ArrayList<>();
+            for (CarPart carPart : carParts){
+                carPartDTOS.add(getCarPartById(carPart.getId()));
+            }
+            return carPartDTOS;
+        }
+        return null;
+    }
+
+    @Override
+    public List<CarPartDTO> getCarPartByBrandAndCarName(String brandNameAndCarName) {
+        List<CarPart> carParts = carPartRepository.findByBrandCarName(brandNameAndCarName);
+        return getCarPartDTOS(carParts);
     }
 
     @Override
@@ -61,8 +97,5 @@ public class CarPartServiceImpl implements CarPartService{
         carPartRepository.deleteById(id);
     }
 
-    @Override
-    public List<CarPart> findDistinctByCarsNameAndCarsBrandName(String carName, String brandName) {
-        return carPartRepository.findDistinctByCarsNameAndCarsBrandName(carName, brandName);
-    }
+
 }

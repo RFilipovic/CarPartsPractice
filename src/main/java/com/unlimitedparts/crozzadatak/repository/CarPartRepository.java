@@ -1,8 +1,8 @@
 package com.unlimitedparts.crozzadatak.repository;
-
-import com.unlimitedparts.crozzadatak.model.Car;
 import com.unlimitedparts.crozzadatak.model.CarPart;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,9 +11,13 @@ import java.util.List;
 public interface CarPartRepository extends JpaRepository<CarPart,Long> {
 
     CarPart getCarPartBySerialNumber(String serialNumber);
-    CarPart getCarPartByDateOfCreation(LocalDate dateOfCreation);
+    List<CarPart> getAllByDateOfCreation(LocalDate dateOfCreation);
     CarPart getCarPartById(Long id);
-    List<CarPart> findDistinctByCarsNameAndCarsBrandName(String carName, String brandName);
+    @Query("SELECT cp FROM CarPart cp " +
+            "JOIN cp.cars c " +
+            "JOIN c.brand b " +
+            "WHERE CONCAT(b.name, c.name) = :brandCarName")
+    List<CarPart> findByBrandCarName(@Param("brandCarName") String brandCarName);
     void deleteById(Long id);
     List<CarPart> findAllByIdIn(List<Long> carPartIds);
 

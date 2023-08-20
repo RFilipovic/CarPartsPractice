@@ -1,4 +1,5 @@
 package com.unlimitedparts.crozzadatak.rest;
+import com.unlimitedparts.crozzadatak.DTO.CarDTO;
 import com.unlimitedparts.crozzadatak.request.CreateCarRequest;
 import com.unlimitedparts.crozzadatak.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/car")
 public class CarController {
 
-    private CarService carService;
+    private final CarService carService;
 
     @Autowired
     public CarController(CarService carService){
@@ -25,5 +26,13 @@ public class CarController {
         return ResponseEntity.badRequest().body("Could not add car.");
     }
 
+    @GetMapping("/{carId}")
+    public ResponseEntity<CarDTO> getCarById(@PathVariable Long carId){
+        CarDTO carDTO = carService.getCarById(carId);
+        if (carDTO != null){
+            return ResponseEntity.ok(carDTO);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
 }

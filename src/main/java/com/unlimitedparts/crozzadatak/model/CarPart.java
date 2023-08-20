@@ -19,16 +19,19 @@ public class CarPart {
     @Column(name = "date_of_creation")
     private LocalDate dateOfCreation;
 
-    @ManyToMany
-    @JoinTable(
-            name = "car_part_car",
-            joinColumns = @JoinColumn(name = "car_part_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id")
-    )
-    private List<Car> cars = new ArrayList<>();
+    @ManyToMany(mappedBy = "carParts")
+    private List<Car> cars;
 
     public CarPart(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSerialNumber() {
@@ -54,4 +57,14 @@ public class CarPart {
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
+
+    public void addCar(Car car) {
+        if (cars == null){
+            cars = new ArrayList<>();
+        }
+        cars.add(car);
+        car.getCarParts().add(this);
+    }
+
+
 }
