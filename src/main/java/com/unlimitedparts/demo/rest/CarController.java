@@ -1,7 +1,7 @@
-package com.unlimitedparts.crozzadatak.rest;
-import com.unlimitedparts.crozzadatak.DTO.CarDTO;
-import com.unlimitedparts.crozzadatak.request.CreateCarRequest;
-import com.unlimitedparts.crozzadatak.service.CarService;
+package com.unlimitedparts.demo.rest;
+import com.unlimitedparts.demo.DTO.CarDTO;
+import com.unlimitedparts.demo.request.CreateCarRequest;
+import com.unlimitedparts.demo.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

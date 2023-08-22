@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.unlimitedparts</groupId>
-	<artifactId>croz-zadatak</artifactId>
+	<artifactId>car_parts_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>croz-zadatak</name>
 	<description>croz-zadatak</description>

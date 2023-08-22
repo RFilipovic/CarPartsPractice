@@ -1,16 +1,17 @@
-package com.unlimitedparts.crozzadatak.service;
-import com.unlimitedparts.crozzadatak.DTO.CarPartDTO;
-import com.unlimitedparts.crozzadatak.model.Car;
-import com.unlimitedparts.crozzadatak.model.CarPart;
-import com.unlimitedparts.crozzadatak.repository.CarPartRepository;
-import com.unlimitedparts.crozzadatak.repository.CarRepository;
-import com.unlimitedparts.crozzadatak.request.CreateCarPartRequest;
+package com.unlimitedparts.demo.service;
+import com.unlimitedparts.demo.DTO.CarPartDTO;
+import com.unlimitedparts.demo.DTO.NameDTO;
+import com.unlimitedparts.demo.model.Car;
+import com.unlimitedparts.demo.model.CarPart;
+import com.unlimitedparts.demo.repository.CarPartRepository;
+import com.unlimitedparts.demo.repository.CarRepository;
+import com.unlimitedparts.demo.request.CreateCarPartRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarPartServiceImpl implements CarPartService{
@@ -48,7 +49,7 @@ public class CarPartServiceImpl implements CarPartService{
 
 
     @Override
-    public CarPartDTO getCarPartById(Long id) {
+    public CarPartDTO getCarPartDTOById(Long id) {
         CarPart carPart = carPartRepository.getCarPartById(id);
         if (carPart != null){
             CarPartDTO dto = new CarPartDTO();
@@ -60,11 +61,18 @@ public class CarPartServiceImpl implements CarPartService{
         return null;
     }
 
+
+
+    @Override
+    public Optional<CarPart> getCarPartById(Long id) {
+        return Optional.ofNullable(carPartRepository.getCarPartById(id));
+    }
+
     @Override
     public CarPartDTO getCarPartBySerialNumber(String serialNumber) {
         CarPart carPart = carPartRepository.getCarPartBySerialNumber(serialNumber);
         if (carPart != null){
-            return getCarPartById(carPart.getId());
+            return getCarPartDTOById(carPart.getId());
         }
         return null;
     }
@@ -79,7 +87,7 @@ public class CarPartServiceImpl implements CarPartService{
         if (carParts != null){
             List<CarPartDTO> carPartDTOS = new ArrayList<>();
             for (CarPart carPart : carParts){
-                carPartDTOS.add(getCarPartById(carPart.getId()));
+                carPartDTOS.add(getCarPartDTOById(carPart.getId()));
             }
             return carPartDTOS;
         }
@@ -97,5 +105,18 @@ public class CarPartServiceImpl implements CarPartService{
         carPartRepository.deleteById(id);
     }
 
+    @Override
+    public List<NameDTO> getNameDtos() {
+        List<NameDTO> dtos = new ArrayList<>();
+        List<Car> cars = carRepository.findAll();
+        for (Car car : cars)
+            {
+                NameDTO dto = new NameDTO();
+                dto.setBrandAndName(car.getBrand().getBrandName() + " " + car.getName());
+                dto.setSize((long) car.getCarParts().size());
+                dtos.add(dto);
+            }
 
+        return dtos;
+    }
 }

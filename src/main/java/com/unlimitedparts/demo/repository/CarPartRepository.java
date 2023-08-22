@@ -1,5 +1,5 @@
-package com.unlimitedparts.crozzadatak.repository;
-import com.unlimitedparts.crozzadatak.model.CarPart;
+package com.unlimitedparts.demo.repository;
+import com.unlimitedparts.demo.model.CarPart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +18,7 @@ public interface CarPartRepository extends JpaRepository<CarPart,Long> {
             "JOIN c.brand b " +
             "WHERE CONCAT(b.name, c.name) = :brandCarName")
     List<CarPart> findByBrandCarName(@Param("brandCarName") String brandCarName);
-    void deleteById(Long id);
+    void deleteCarPartById(Long id);
     List<CarPart> findAllByIdIn(List<Long> carPartIds);
 
 }

@@ -1,6 +1,6 @@
-package com.unlimitedparts.crozzadatak.repository;
+package com.unlimitedparts.demo.repository;
 
-import com.unlimitedparts.crozzadatak.model.Brand;
+import com.unlimitedparts.demo.model.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

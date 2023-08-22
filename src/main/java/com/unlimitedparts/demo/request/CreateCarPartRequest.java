@@ -1,4 +1,4 @@
-package com.unlimitedparts.crozzadatak.request;
+package com.unlimitedparts.demo.request;
 
 import java.time.LocalDate;
 import java.util.List;

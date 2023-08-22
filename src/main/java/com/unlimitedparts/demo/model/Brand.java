@@ -1,4 +1,4 @@
-package com.unlimitedparts.crozzadatak.model;
+package com.unlimitedparts.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

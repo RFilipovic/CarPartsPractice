@@ -1,7 +1,7 @@
-package com.unlimitedparts.crozzadatak.model;
+package com.unlimitedparts.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity

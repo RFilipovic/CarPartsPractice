@@ -1,4 +1,4 @@
-package com.unlimitedparts.crozzadatak;
+package com.unlimitedparts.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

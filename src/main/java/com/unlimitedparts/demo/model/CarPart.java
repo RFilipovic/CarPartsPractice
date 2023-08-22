@@ -1,4 +1,4 @@
-package com.unlimitedparts.crozzadatak.model;
+package com.unlimitedparts.demo.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

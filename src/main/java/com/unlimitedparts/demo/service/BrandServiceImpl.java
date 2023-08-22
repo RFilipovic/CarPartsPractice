@@ -1,11 +1,11 @@
-package com.unlimitedparts.crozzadatak.service;
+package com.unlimitedparts.demo.service;
 
-import com.unlimitedparts.crozzadatak.DTO.BrandDTO;
-import com.unlimitedparts.crozzadatak.model.Brand;
-import com.unlimitedparts.crozzadatak.model.Car;
-import com.unlimitedparts.crozzadatak.repository.BrandRepository;
-import com.unlimitedparts.crozzadatak.repository.CarRepository;
-import com.unlimitedparts.crozzadatak.request.CreateBrandRequest;
+import com.unlimitedparts.demo.DTO.BrandDTO;
+import com.unlimitedparts.demo.model.Brand;
+import com.unlimitedparts.demo.model.Car;
+import com.unlimitedparts.demo.repository.BrandRepository;
+import com.unlimitedparts.demo.repository.CarRepository;
+import com.unlimitedparts.demo.request.CreateBrandRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

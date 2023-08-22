@@ -1,4 +1,4 @@
-package com.unlimitedparts.crozzadatak;
+package com.unlimitedparts.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
