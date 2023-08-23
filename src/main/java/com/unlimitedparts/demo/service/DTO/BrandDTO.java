@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.DTO;
+package com.unlimitedparts.demo.service.DTO;
 
 import java.util.List;
 

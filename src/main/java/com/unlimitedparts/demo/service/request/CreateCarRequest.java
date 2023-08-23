@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.request;
+package com.unlimitedparts.demo.service.request;
 import java.util.List;
 
 public class CreateCarRequest {

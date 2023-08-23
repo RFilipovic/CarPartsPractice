@@ -1,6 +1,6 @@
-package com.unlimitedparts.demo.rest;
-import com.unlimitedparts.demo.DTO.BrandDTO;
-import com.unlimitedparts.demo.request.CreateBrandRequest;
+package com.unlimitedparts.demo.controller;
+import com.unlimitedparts.demo.service.DTO.BrandDTO;
+import com.unlimitedparts.demo.service.request.CreateBrandRequest;
 import com.unlimitedparts.demo.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.unlimitedparts.demo.rest;
-import com.unlimitedparts.demo.DTO.CarDTO;
-import com.unlimitedparts.demo.request.CreateCarRequest;
+package com.unlimitedparts.demo.controller;
+import com.unlimitedparts.demo.service.DTO.CarDTO;
+import com.unlimitedparts.demo.service.request.CreateCarRequest;
 import com.unlimitedparts.demo.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

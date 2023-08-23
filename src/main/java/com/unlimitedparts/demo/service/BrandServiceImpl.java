@@ -1,11 +1,11 @@
 package com.unlimitedparts.demo.service;
 
-import com.unlimitedparts.demo.DTO.BrandDTO;
-import com.unlimitedparts.demo.model.Brand;
-import com.unlimitedparts.demo.model.Car;
-import com.unlimitedparts.demo.repository.BrandRepository;
-import com.unlimitedparts.demo.repository.CarRepository;
-import com.unlimitedparts.demo.request.CreateBrandRequest;
+import com.unlimitedparts.demo.service.DTO.BrandDTO;
+import com.unlimitedparts.demo.domain.Brand;
+import com.unlimitedparts.demo.domain.Car;
+import com.unlimitedparts.demo.domain.repository.BrandRepository;
+import com.unlimitedparts.demo.domain.repository.CarRepository;
+import com.unlimitedparts.demo.service.request.CreateBrandRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

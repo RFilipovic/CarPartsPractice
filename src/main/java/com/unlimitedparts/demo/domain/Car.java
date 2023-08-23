@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.model;
+package com.unlimitedparts.demo.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 

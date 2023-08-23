@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.DTO;
+package com.unlimitedparts.demo.service.DTO;
 
 public class NameDTO {
 

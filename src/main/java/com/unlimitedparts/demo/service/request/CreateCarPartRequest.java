@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.request;
+package com.unlimitedparts.demo.service.request;
 
 import java.time.LocalDate;
 import java.util.List;

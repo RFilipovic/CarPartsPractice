@@ -1,4 +1,4 @@
-package com.unlimitedparts.demo.model;
+package com.unlimitedparts.demo.domain;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

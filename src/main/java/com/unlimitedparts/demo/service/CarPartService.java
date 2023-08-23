@@ -1,8 +1,8 @@
 package com.unlimitedparts.demo.service;
-import com.unlimitedparts.demo.DTO.CarPartDTO;
-import com.unlimitedparts.demo.DTO.NameDTO;
-import com.unlimitedparts.demo.model.CarPart;
-import com.unlimitedparts.demo.request.CreateCarPartRequest;
+import com.unlimitedparts.demo.service.DTO.CarPartDTO;
+import com.unlimitedparts.demo.service.DTO.NameDTO;
+import com.unlimitedparts.demo.domain.CarPart;
+import com.unlimitedparts.demo.service.request.CreateCarPartRequest;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.unlimitedparts.demo.repository;
+package com.unlimitedparts.demo.domain.repository;
 
-import com.unlimitedparts.demo.model.Car;
+import com.unlimitedparts.demo.domain.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
