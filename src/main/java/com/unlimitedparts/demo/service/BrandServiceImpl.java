@@ -26,9 +26,8 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public Brand addBrand(CreateBrandRequest brandRequest) {
-        if (brandRequest == null || brandRequest.getBrandName() == null || brandRequest.getCarIds() == null) {
+        if (brandRequest == null || brandRequest.getBrandName() == null || brandRequest.getCarIds() == null)
             throw new IllegalArgumentException("Invalid brand request");
-        }
 
         Brand brand = new Brand();
         brand.setBrandName(brandRequest.getBrandName());

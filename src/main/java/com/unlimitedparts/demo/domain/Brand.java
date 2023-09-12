@@ -13,8 +13,7 @@ public class Brand {
     @Column(name = "brand_id")
     private Long brandId;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "brand")
     private List<Car> cars;
 
     @Column(name = "brand_name")

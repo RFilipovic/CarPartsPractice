@@ -21,13 +21,13 @@ public class SecurityConfig {
         UserDetails user = User.builder()
                 .username("sales")
                 .password("{noop}prodaja")
-                .roles("USER")
+                .roles("SALES")
                 .build();
 
         UserDetails admin = User.builder()
                 .username("warehouse")
                 .password("{noop}skladiste")
-                .roles("ADMIN")
+                .roles("WAREHOUSE")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
@@ -38,9 +38,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers(HttpMethod.GET, "/car-part").hasRole("USER")
-                                .requestMatchers(HttpMethod.DELETE, "/car-part/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/car-part").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/car-part").hasRole("SALES")
+                                .requestMatchers(HttpMethod.DELETE, "/car-part/**").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.POST, "/car-part").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.POST, "/sale/sales").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.POST, "/sale/products").hasRole("WAREHOUSE")
                 );
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);

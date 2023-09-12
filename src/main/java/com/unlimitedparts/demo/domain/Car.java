@@ -14,7 +14,6 @@ public class Car {
     private String name;
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    @JsonBackReference
     private Brand brand;
 
     @ManyToMany
