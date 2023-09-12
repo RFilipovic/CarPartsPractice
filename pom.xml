@@ -11,8 +11,8 @@
 	<groupId>com.unlimitedparts</groupId>
 	<artifactId>car_parts_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>croz-zadatak</name>
-	<description>croz-zadatak</description>
+	<name>demo-practice</name>
+	<description>demo-practice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -47,6 +47,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- SecurityConfig class -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
