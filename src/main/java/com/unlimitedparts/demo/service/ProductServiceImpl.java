@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product addProduct(CreateProductRequest productRequest) {
+    public void addProduct(CreateProductRequest productRequest) {
         if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
         || productRequest.getSaleId() == null)
             throw new IllegalArgumentException("Invalid product request");
@@ -33,6 +33,6 @@ public class ProductServiceImpl implements ProductService{
             Sale sale = saleRepository.getSaleById(saleId);
             product.setSale(sale);
         }
-        return productRepository.save(product);
+        productRepository.save(product);
     }
 }

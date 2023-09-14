@@ -1,7 +1,5 @@
 package com.unlimitedparts.demo.controller;
 import com.unlimitedparts.demo.domain.Brand;
-import com.unlimitedparts.demo.domain.Car;
-import com.unlimitedparts.demo.service.BrandServiceImpl;
 import com.unlimitedparts.demo.service.DTO.BrandDTO;
 import com.unlimitedparts.demo.service.request.CreateBrandRequest;
 import com.unlimitedparts.demo.service.BrandService;

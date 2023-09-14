@@ -23,7 +23,7 @@ public class SaleServiceImpl implements SaleService{
     }
 
     @Override
-    public Sale addSale(CreateSaleRequest saleRequest) {
+    public void addSale(CreateSaleRequest saleRequest) {
 
         if (saleRequest.getFrom() == null || saleRequest.getTo() == null ||
         saleRequest.getPercentage() == null || saleRequest.getProductIds() == null)
@@ -42,6 +42,6 @@ public class SaleServiceImpl implements SaleService{
             List<Product> products = productRepository.findAllByIdIn(productIds);
             sale.setProducts(products);
         }
-        return saleRepository.save(sale);
+        saleRepository.save(sale);
     }
 }

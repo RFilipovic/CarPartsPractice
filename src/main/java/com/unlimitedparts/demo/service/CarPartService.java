@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface CarPartService {
 
-    CarPart addCarPart(CreateCarPartRequest carPart);
+    void addCarPart(CreateCarPartRequest carPart);
     CarPartDTO getCarPartDTOById(Long id);
     Optional<CarPart> getCarPartById(Long id);
     CarPartDTO getCarPartBySerialNumber(String serialNumber);

@@ -18,7 +18,6 @@ public interface CarPartRepository extends JpaRepository<CarPart,Long> {
             "JOIN c.brand b " +
             "WHERE CONCAT(b.name, c.name) = :brandCarName")
     List<CarPart> findByBrandCarName(@Param("brandCarName") String brandCarName);
-    void deleteCarPartById(Long id);
     List<CarPart> findAllByIdIn(List<Long> carPartIds);
 
 }

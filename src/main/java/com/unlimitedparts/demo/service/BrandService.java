@@ -7,7 +7,7 @@ import com.unlimitedparts.demo.service.request.CreateBrandRequest;
 import java.util.Optional;
 
 public interface BrandService {
-    Brand addBrand(CreateBrandRequest brandRequest);
+    void addBrand(CreateBrandRequest brandRequest);
     BrandDTO getBrandDTOById(Long id);
     Optional<Brand> getBrandById(Long id);
 

@@ -29,7 +29,7 @@ public class CarPartServiceImpl implements CarPartService{
 
 
     @Override
-    public CarPart addCarPart(CreateCarPartRequest carPartRequest) {
+    public void addCarPart(CreateCarPartRequest carPartRequest) {
         List<Long> carIds = carPartRequest.getCarIds();
         String serialNumber = carPartRequest.getSerialNumber();
         LocalDate date = carPartRequest.getDateOfCreation();
@@ -45,7 +45,7 @@ public class CarPartServiceImpl implements CarPartService{
             carPart.addCar(car);
         }
 
-        return carPartRepository.save(carPart);
+        carPartRepository.save(carPart);
     }
 
 

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CarService {
 
-    Car addCar(CreateCarRequest carRequest);
+    void addCar(CreateCarRequest carRequest);
     CarDTO getCarDTOById(Long id);
     Optional<Car> getCarById(Long id);
     void deleteCarById(Long id);

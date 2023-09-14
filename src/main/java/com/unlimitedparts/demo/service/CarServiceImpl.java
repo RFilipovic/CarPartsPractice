@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public Car addCar(CreateCarRequest carRequest) {
+    public void addCar(CreateCarRequest carRequest) {
 
         Long brandId = carRequest.getBrandId();
         List<Long> carPartIds = carRequest.getCarPartIds();
@@ -45,7 +45,7 @@ public class CarServiceImpl implements CarService{
         car.setBrand(brand);
         car.setCarParts(carParts);
 
-        return carRepository.save(car);
+        carRepository.save(car);
     }
 
     @Override
