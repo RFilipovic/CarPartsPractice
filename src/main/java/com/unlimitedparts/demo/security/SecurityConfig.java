@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(configurer ->
                         configurer
                                 .requestMatchers(HttpMethod.POST, "/sale/**").hasRole("SALES")
+                                .requestMatchers(HttpMethod.DELETE, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.POST, "/warehouse/**").hasRole("WAREHOUSE")
                                 .requestMatchers(HttpMethod.GET, "/warehouse/**").hasRole("WAREHOUSE")
                                 .requestMatchers(HttpMethod.DELETE, "/warehouse/**").hasRole("WAREHOUSE")

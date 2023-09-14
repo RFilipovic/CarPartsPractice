@@ -5,10 +5,12 @@ import com.unlimitedparts.demo.domain.Sale;
 import com.unlimitedparts.demo.domain.repository.ProductRepository;
 import com.unlimitedparts.demo.domain.repository.SaleRepository;
 import com.unlimitedparts.demo.service.request.CreateSaleRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SaleServiceImpl implements SaleService{
@@ -43,5 +45,16 @@ public class SaleServiceImpl implements SaleService{
             sale.setProducts(products);
         }
         saleRepository.save(sale);
+    }
+
+    @Override
+    @Transactional
+    public void deleteSaleById(Long id) {
+        saleRepository.deleteSaleById(id);
+    }
+
+    @Override
+    public Optional<Sale> getSaleById(Long id) {
+        return Optional.ofNullable(saleRepository.getSaleById(id));
     }
 }
