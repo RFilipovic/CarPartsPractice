@@ -6,10 +6,11 @@ import com.unlimitedparts.demo.domain.Car;
 import com.unlimitedparts.demo.domain.repository.BrandRepository;
 import com.unlimitedparts.demo.domain.repository.CarRepository;
 import com.unlimitedparts.demo.service.request.CreateBrandRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +43,7 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public BrandDTO getBrandById(Long id) {
+    public BrandDTO getBrandDTOById(Long id) {
 
         Brand brand = brandRepository.findById(id).orElse(null);
         if (brand != null){
@@ -55,5 +56,16 @@ public class BrandServiceImpl implements BrandService{
             return dto;
         }
         return null;
+    }
+
+    @Override
+    public Optional<Brand> getBrandById(Long id) {
+        return Optional.ofNullable(brandRepository.getBrandById(id));
+    }
+
+    @Override
+    @Transactional
+    public void deleteBrandById(Long brandId) {
+        brandRepository.deleteBrandById(brandId);
     }
 }

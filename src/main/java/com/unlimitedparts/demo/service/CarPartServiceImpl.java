@@ -6,6 +6,7 @@ import com.unlimitedparts.demo.domain.CarPart;
 import com.unlimitedparts.demo.domain.repository.CarPartRepository;
 import com.unlimitedparts.demo.domain.repository.CarRepository;
 import com.unlimitedparts.demo.service.request.CreateCarPartRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -101,6 +102,7 @@ public class CarPartServiceImpl implements CarPartService{
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         carPartRepository.deleteById(id);
     }

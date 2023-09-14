@@ -24,8 +24,12 @@ public class SaleServiceImpl implements SaleService{
 
     @Override
     public Sale addSale(CreateSaleRequest saleRequest) {
+
         if (saleRequest.getFrom() == null || saleRequest.getTo() == null ||
         saleRequest.getPercentage() == null || saleRequest.getProductIds() == null)
+            throw new IllegalArgumentException("Invalid sale request.");
+
+        if (!saleRequest.getFrom().isBefore(saleRequest.getTo()))
             throw new IllegalArgumentException("Invalid sale request.");
 
         Sale sale = new Sale();

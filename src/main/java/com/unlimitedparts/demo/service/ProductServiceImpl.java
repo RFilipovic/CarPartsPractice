@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService{
         if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
         || productRequest.getSaleId() == null)
             throw new IllegalArgumentException("Invalid product request");
-
         Product product = new Product();
         product.setSerialNumber(productRequest.getSerialNumber());
         product.setBasePrice(productRequest.getBasePrice());

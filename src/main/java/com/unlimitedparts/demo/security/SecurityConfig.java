@@ -18,19 +18,19 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
 
-        UserDetails user = User.builder()
+        UserDetails sales = User.builder()
                 .username("sales")
                 .password("{noop}prodaja")
                 .roles("SALES")
                 .build();
 
-        UserDetails admin = User.builder()
+        UserDetails warehouse = User.builder()
                 .username("warehouse")
                 .password("{noop}skladiste")
                 .roles("WAREHOUSE")
                 .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(sales, warehouse);
     }
 
     @Bean
@@ -38,11 +38,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers(HttpMethod.GET, "/car-part").hasRole("SALES")
-                                .requestMatchers(HttpMethod.DELETE, "/car-part/**").hasRole("WAREHOUSE")
-                                .requestMatchers(HttpMethod.POST, "/car-part").hasRole("WAREHOUSE")
-                                .requestMatchers(HttpMethod.POST, "/sale/sales").hasRole("WAREHOUSE")
-                                .requestMatchers(HttpMethod.POST, "/sale/products").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.POST, "/sale/**").hasRole("SALES")
+                                .requestMatchers(HttpMethod.POST, "/warehouse/**").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.GET, "/warehouse/**").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.DELETE, "/warehouse/**").hasRole("WAREHOUSE")
                 );
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
