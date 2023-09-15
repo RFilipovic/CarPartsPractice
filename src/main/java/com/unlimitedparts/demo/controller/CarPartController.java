@@ -79,7 +79,7 @@ public class CarPartController {
             for (Car car : carPart.getCars()){
                 car.getCarParts().remove(carPart);
             }
-            carPartService.deleteById(id);
+            carPartService.deleteCarPartById(id);
             return ResponseEntity.ok("CarPart deleted successfully.");
         }
         return ResponseEntity.notFound().build();

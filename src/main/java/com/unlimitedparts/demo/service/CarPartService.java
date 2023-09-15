@@ -18,6 +18,6 @@ public interface CarPartService {
     List<CarPartDTO> getCarPartByDateOfCreation(LocalDate dateOfCreation);
 
     List<CarPartDTO> getCarPartByBrandAndCarName(String brandNameAndCarName);
-    void deleteById(Long id);
+    void deleteCarPartById(Long id);
     List<NameDTO> getNameDtos();
 }

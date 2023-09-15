@@ -1,4 +1,6 @@
 package com.unlimitedparts.demo.service;
+import com.unlimitedparts.demo.domain.Product;
+import com.unlimitedparts.demo.domain.repository.ProductRepository;
 import com.unlimitedparts.demo.service.DTO.CarPartDTO;
 import com.unlimitedparts.demo.service.DTO.NameDTO;
 import com.unlimitedparts.demo.domain.Car;
@@ -20,11 +22,13 @@ public class CarPartServiceImpl implements CarPartService{
     private final CarPartRepository carPartRepository;
 
     private final CarRepository carRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public CarPartServiceImpl(CarPartRepository carPartRepository, CarRepository carRepository){
+    public CarPartServiceImpl(CarPartRepository carPartRepository, CarRepository carRepository, ProductRepository productRepository){
         this.carPartRepository = carPartRepository;
         this.carRepository = carRepository;
+        this.productRepository = productRepository;
     }
 
 
@@ -103,7 +107,9 @@ public class CarPartServiceImpl implements CarPartService{
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteCarPartById(Long id) {
+        CarPart carPart = carPartRepository.getCarPartById(id);
+        productRepository.deleteProductById(carPart.getProduct().getId());
         carPartRepository.deleteById(id);
     }
 

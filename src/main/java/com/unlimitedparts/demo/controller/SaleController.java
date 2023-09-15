@@ -87,6 +87,8 @@ public class SaleController {
     public ResponseEntity<String> deleteProductById(@PathVariable Long productId){
         Optional<Product> productOptional = productService.getProductById(productId);
         if (productOptional.isPresent()){
+            Product product = productOptional.get();
+            product.setCarPart(null);
             productService.deleteProductById(productId);
             return ResponseEntity.ok("Product successfully deleted.");
         }

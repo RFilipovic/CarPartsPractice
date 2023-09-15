@@ -1,7 +1,9 @@
 package com.unlimitedparts.demo.service;
 
+import com.unlimitedparts.demo.domain.CarPart;
 import com.unlimitedparts.demo.domain.Product;
 import com.unlimitedparts.demo.domain.Sale;
+import com.unlimitedparts.demo.domain.repository.CarPartRepository;
 import com.unlimitedparts.demo.domain.repository.ProductRepository;
 import com.unlimitedparts.demo.domain.repository.SaleRepository;
 import com.unlimitedparts.demo.service.DTO.ProductDTO;
@@ -17,11 +19,13 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
     private final SaleRepository saleRepository;
+    private final CarPartRepository carPartRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, SaleRepository saleRepository){
+    public ProductServiceImpl(ProductRepository productRepository, SaleRepository saleRepository, CarPartRepository carPartRepository){
         this.productRepository = productRepository;
         this.saleRepository = saleRepository;
+        this.carPartRepository = carPartRepository;
     }
 
     @Override
@@ -29,13 +33,21 @@ public class ProductServiceImpl implements ProductService{
         if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
         || productRequest.getSaleId() == null)
             throw new IllegalArgumentException("Invalid product request.");
+
+        CarPart carPart = carPartRepository.getCarPartBySerialNumber(productRequest.getSerialNumber());
+        if (carPart == null)
+            throw new IllegalArgumentException("Invalid serial number.");
+
         Product product = new Product();
         product.setSerialNumber(productRequest.getSerialNumber());
         product.setBasePrice(productRequest.getBasePrice());
+        product.setCarPart(carPart);
         Long saleId = productRequest.getSaleId();
         if (saleId != null){
             Sale sale = saleRepository.getSaleById(saleId);
             product.setSale(sale);
+        }else{
+            product.setSale(null);
         }
         productRepository.save(product);
     }
@@ -69,9 +81,11 @@ public class ProductServiceImpl implements ProductService{
         Product product = productRepository.getProductById(id);
         if (product != null){
             ProductDTO productDTO = new ProductDTO();
+            productDTO.setDateOfCreation(product.getCarPart().getDateOfCreation());
             productDTO.setSaleId(product.getSale().getSaleId());
             productDTO.setSerialNumber(product.getSerialNumber());
             productDTO.setBasePrice(product.getBasePrice());
+            productDTO.setFinalPrice(product.getBasePrice() * (1-(product.getSale().getPercentage()/100)));
             return productDTO;
         }
         return null;

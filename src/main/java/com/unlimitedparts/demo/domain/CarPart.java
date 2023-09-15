@@ -22,6 +22,9 @@ public class CarPart {
     @ManyToMany(mappedBy = "carParts")
     private List<Car> cars;
 
+    @OneToOne(mappedBy = "carPart")
+    private Product product;
+
     public CarPart(){
 
     }
@@ -66,5 +69,11 @@ public class CarPart {
         car.getCarParts().add(this);
     }
 
+    public Product getProduct() {
+        return product;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

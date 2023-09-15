@@ -17,6 +17,10 @@ public class Product {
     @JoinColumn(name = "sale_id")
     private Sale sale;
 
+    @OneToOne
+    @JoinColumn(name = "car_part_id")
+    private CarPart carPart;
+
     public Product(){
 
     }
@@ -59,5 +63,13 @@ public class Product {
 
     public void setSale(Sale sale) {
         this.sale = sale;
+    }
+
+    public CarPart getCarPart() {
+        return carPart;
+    }
+
+    public void setCarPart(CarPart carPart) {
+        this.carPart = carPart;
     }
 }

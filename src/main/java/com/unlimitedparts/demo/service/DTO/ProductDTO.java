@@ -7,6 +7,7 @@ public class ProductDTO {
     private String serialNumber;
     private LocalDate dateOfCreation;
     private Double basePrice;
+    private Double finalPrice;
     private Long saleId;
 
     public ProductDTO(){}
@@ -34,5 +35,21 @@ public class ProductDTO {
 
     public void setSaleId(Long saleId) {
         this.saleId = saleId;
+    }
+
+    public LocalDate getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public void setDateOfCreation(LocalDate dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
+
+    public Double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(Double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }
