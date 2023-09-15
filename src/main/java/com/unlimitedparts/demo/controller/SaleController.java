@@ -2,6 +2,7 @@ package com.unlimitedparts.demo.controller;
 
 import com.unlimitedparts.demo.domain.Product;
 import com.unlimitedparts.demo.domain.Sale;
+import com.unlimitedparts.demo.service.DTO.ProductDTO;
 import com.unlimitedparts.demo.service.ProductService;
 import com.unlimitedparts.demo.service.SaleService;
 import com.unlimitedparts.demo.service.request.CreateProductRequest;
@@ -58,6 +59,28 @@ public class SaleController {
             return ResponseEntity.ok("Product successfully added.");
         }
         return ResponseEntity.badRequest().body("Could not add product.");
+    }
+
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody CreateProductRequest productRequest){
+        if (productRequest == null)
+            throw new IllegalArgumentException("Illegal product request.");
+        Optional<Product> productOptional = productService.getProductById(productId);
+        if (productOptional.isPresent()){
+            Product product = productOptional.get();
+            if(productService.updateProduct(product, productRequest))
+                return ResponseEntity.ok("Product successfully updated.");
+        }
+        return ResponseEntity.badRequest().body("Could not update product.");
+    }
+
+    @GetMapping("/products/{productId}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long productId){
+        ProductDTO productDTO = productService.getProductDTOById(productId);
+        if (productDTO != null){
+            return ResponseEntity.ok(productDTO);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/products/{productId}")

@@ -4,6 +4,7 @@ import com.unlimitedparts.demo.domain.Product;
 import com.unlimitedparts.demo.domain.Sale;
 import com.unlimitedparts.demo.domain.repository.ProductRepository;
 import com.unlimitedparts.demo.domain.repository.SaleRepository;
+import com.unlimitedparts.demo.service.DTO.ProductDTO;
 import com.unlimitedparts.demo.service.request.CreateProductRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ProductServiceImpl implements ProductService{
     public void addProduct(CreateProductRequest productRequest) {
         if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
         || productRequest.getSaleId() == null)
-            throw new IllegalArgumentException("Invalid product request");
+            throw new IllegalArgumentException("Invalid product request.");
         Product product = new Product();
         product.setSerialNumber(productRequest.getSerialNumber());
         product.setBasePrice(productRequest.getBasePrice());
@@ -48,5 +49,31 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     public void deleteProductById(Long id) {
         productRepository.deleteProductById(id);
+    }
+
+    @Override
+    public boolean updateProduct(Product product, CreateProductRequest productRequest) {
+        if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
+                || productRequest.getSaleId() == null)
+            throw new IllegalArgumentException("Invalid product request for update.");
+        if (product.getSerialNumber().equals(productRequest.getSerialNumber())){
+            product.setBasePrice(productRequest.getBasePrice());
+            productRepository.save(product);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public ProductDTO getProductDTOById(Long id) {
+        Product product = productRepository.getProductById(id);
+        if (product != null){
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setSaleId(product.getSale().getSaleId());
+            productDTO.setSerialNumber(product.getSerialNumber());
+            productDTO.setBasePrice(product.getBasePrice());
+            return productDTO;
+        }
+        return null;
     }
 }

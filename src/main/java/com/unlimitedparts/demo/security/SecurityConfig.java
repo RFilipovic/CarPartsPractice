@@ -40,9 +40,12 @@ public class SecurityConfig {
                         configurer
                                 .requestMatchers(HttpMethod.POST, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.DELETE, "/sale/**").hasRole("SALES")
+                                .requestMatchers(HttpMethod.PUT, "/sale/**").hasRole("SALES")
+                                .requestMatchers(HttpMethod.GET, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.POST, "/warehouse/**").hasRole("WAREHOUSE")
                                 .requestMatchers(HttpMethod.GET, "/warehouse/**").hasRole("WAREHOUSE")
                                 .requestMatchers(HttpMethod.DELETE, "/warehouse/**").hasRole("WAREHOUSE")
+                                .requestMatchers(HttpMethod.PUT, "/warehouse/**").hasRole("WAREHOUSE")
                 );
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
