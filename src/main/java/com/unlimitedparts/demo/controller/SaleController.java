@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -79,6 +80,15 @@ public class SaleController {
         ProductDTO productDTO = productService.getProductDTOById(productId);
         if (productDTO != null){
             return ResponseEntity.ok(productDTO);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<ProductDTO>> getAllProducts(){
+        List<ProductDTO> productDTOS = productService.getAllProductDTOS();
+        if (productDTOS != null){
+            return ResponseEntity.ok(productDTOS);
         }
         return ResponseEntity.badRequest().build();
     }

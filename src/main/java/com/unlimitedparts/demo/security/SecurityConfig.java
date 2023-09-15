@@ -18,6 +18,12 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
 
+        UserDetails customer = User.builder()
+                .username("customer")
+                .password("{noop}kupac")
+                .roles("CUSTOMER")
+                .build();
+
         UserDetails sales = User.builder()
                 .username("sales")
                 .password("{noop}prodaja")
@@ -30,7 +36,7 @@ public class SecurityConfig {
                 .roles("WAREHOUSE")
                 .build();
 
-        return new InMemoryUserDetailsManager(sales, warehouse);
+        return new InMemoryUserDetailsManager(customer, sales, warehouse);
     }
 
     @Bean
@@ -38,6 +44,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(configurer ->
                         configurer
+                                .requestMatchers(HttpMethod.GET, "/sale/products").hasRole("CUSTOMER")
                                 .requestMatchers(HttpMethod.POST, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.DELETE, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.PUT, "/sale/**").hasRole("SALES")

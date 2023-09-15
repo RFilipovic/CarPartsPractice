@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -82,12 +84,26 @@ public class ProductServiceImpl implements ProductService{
         if (product != null){
             ProductDTO productDTO = new ProductDTO();
             productDTO.setDateOfCreation(product.getCarPart().getDateOfCreation());
-            productDTO.setSaleId(product.getSale().getSaleId());
             productDTO.setSerialNumber(product.getSerialNumber());
             productDTO.setBasePrice(product.getBasePrice());
-            productDTO.setFinalPrice(product.getBasePrice() * (1-(product.getSale().getPercentage()/100)));
+            if(product.getSale() != null) {
+                productDTO.setFinalPrice(product.getBasePrice() * (1 - (product.getSale().getPercentage() / 100)));
+                productDTO.setSaleId(product.getSale().getSaleId());
+            }else
+                productDTO.setFinalPrice(product.getBasePrice());
             return productDTO;
         }
         return null;
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductDTOS() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product : products){
+            Long id = product.getId();
+            productDTOS.add(getProductDTOById(id));
+        }
+        return productDTOS;
     }
 }

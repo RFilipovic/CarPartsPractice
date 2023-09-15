@@ -3,6 +3,7 @@ package com.unlimitedparts.demo.service;
 import com.unlimitedparts.demo.domain.Product;
 import com.unlimitedparts.demo.service.DTO.ProductDTO;
 import com.unlimitedparts.demo.service.request.CreateProductRequest;
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
@@ -12,5 +13,6 @@ public interface ProductService {
     void deleteProductById(Long id);
     boolean updateProduct(Product product, CreateProductRequest productRequest);
     ProductDTO getProductDTOById(Long id);
+    List<ProductDTO> getAllProductDTOS();
 
 }
