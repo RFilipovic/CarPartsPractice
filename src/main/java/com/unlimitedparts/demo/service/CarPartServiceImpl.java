@@ -109,7 +109,8 @@ public class CarPartServiceImpl implements CarPartService{
     @Transactional
     public void deleteCarPartById(Long id) {
         CarPart carPart = carPartRepository.getCarPartById(id);
-        productRepository.deleteProductById(carPart.getProduct().getId());
+        if(carPart.getProduct() != null)
+            productRepository.deleteProductById(carPart.getProduct().getId());
         carPartRepository.deleteById(id);
     }
 

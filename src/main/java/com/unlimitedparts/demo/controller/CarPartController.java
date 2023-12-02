@@ -1,4 +1,5 @@
 package com.unlimitedparts.demo.controller;
+import com.unlimitedparts.demo.exception.ApiRequestException;
 import com.unlimitedparts.demo.service.DTO.CarPartDTO;
 import com.unlimitedparts.demo.service.DTO.NameDTO;
 import com.unlimitedparts.demo.domain.Car;
@@ -23,11 +24,11 @@ public class CarPartController {
 
     @PostMapping
     public ResponseEntity<String> addCarPart(@RequestBody CreateCarPartRequest carPart){
-        if (carPart != null) {
+        if (carPart.getDateOfCreation() != null && carPart.getSerialNumber() != null) {
             carPartService.addCarPart(carPart);
             return ResponseEntity.ok("Car part successfully added.");
         }
-        return ResponseEntity.badRequest().body("Could not add car part");
+        throw new ApiRequestException("Could not add car-part to the database.");
     }
 
     @GetMapping
@@ -65,7 +66,7 @@ public class CarPartController {
             }
         }
 
-        return ResponseEntity.badRequest().build();
+        throw new ApiRequestException("Could not return car-part from the database.");
     }
 
 
@@ -82,7 +83,7 @@ public class CarPartController {
             carPartService.deleteCarPartById(id);
             return ResponseEntity.ok("CarPart deleted successfully.");
         }
-        return ResponseEntity.notFound().build();
+        throw new ApiRequestException("Could not delete car-part from the database.");
     }
 }
 

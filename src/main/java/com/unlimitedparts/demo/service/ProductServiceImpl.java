@@ -6,6 +6,7 @@ import com.unlimitedparts.demo.domain.Sale;
 import com.unlimitedparts.demo.domain.repository.CarPartRepository;
 import com.unlimitedparts.demo.domain.repository.ProductRepository;
 import com.unlimitedparts.demo.domain.repository.SaleRepository;
+import com.unlimitedparts.demo.exception.ApiRequestException;
 import com.unlimitedparts.demo.service.DTO.ProductDTO;
 import com.unlimitedparts.demo.service.request.CreateProductRequest;
 import jakarta.transaction.Transactional;
@@ -67,9 +68,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public boolean updateProduct(Product product, CreateProductRequest productRequest) {
-        if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null
-                || productRequest.getSaleId() == null)
-            throw new IllegalArgumentException("Invalid product request for update.");
+        if (productRequest.getSerialNumber() == null || productRequest.getBasePrice() == null)
+            throw new ApiRequestException("Invalid product request for update.");
         if (product.getSerialNumber().equals(productRequest.getSerialNumber())){
             product.setBasePrice(productRequest.getBasePrice());
             productRepository.save(product);

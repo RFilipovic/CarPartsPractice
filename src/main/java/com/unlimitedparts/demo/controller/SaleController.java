@@ -2,6 +2,7 @@ package com.unlimitedparts.demo.controller;
 
 import com.unlimitedparts.demo.domain.Product;
 import com.unlimitedparts.demo.domain.Sale;
+import com.unlimitedparts.demo.exception.ApiRequestException;
 import com.unlimitedparts.demo.service.DTO.ProductDTO;
 import com.unlimitedparts.demo.service.ProductService;
 import com.unlimitedparts.demo.service.SaleService;
@@ -29,11 +30,20 @@ public class SaleController {
 
     @PostMapping("/sales")
     public ResponseEntity<String> addSale(@RequestBody CreateSaleRequest saleRequest){
-        if (saleRequest != null){
+        if (saleRequest.getFrom() != null && saleRequest.getTo() != null && saleRequest.getPercentage() != null){
             saleService.addSale(saleRequest);
             return ResponseEntity.ok("Sale successfully added");
         }
-        return ResponseEntity.badRequest().body("Could not add sale.");
+        throw new ApiRequestException("Could not add sale.");
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity<String> addProduct(@RequestBody CreateProductRequest productRequest){
+        if (productRequest.getSerialNumber() != null && productRequest.getBasePrice() != null){
+            productService.addProduct(productRequest);
+            return ResponseEntity.ok("Product successfully added.");
+        }
+        throw new ApiRequestException("Could not add product.");
     }
 
     @DeleteMapping("/sales/{saleId}")
@@ -50,47 +60,7 @@ public class SaleController {
             saleService.deleteSaleById(saleId);
             return ResponseEntity.ok("Sale successfully deleted.");
         }
-        return ResponseEntity.badRequest().build();
-    }
-
-    @PostMapping("/products")
-    public ResponseEntity<String> addProduct(@RequestBody CreateProductRequest productRequest){
-        if (productRequest != null){
-            productService.addProduct(productRequest);
-            return ResponseEntity.ok("Product successfully added.");
-        }
-        return ResponseEntity.badRequest().body("Could not add product.");
-    }
-
-    @PutMapping("/products/{productId}")
-    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody CreateProductRequest productRequest){
-        if (productRequest == null)
-            throw new IllegalArgumentException("Illegal product request.");
-        Optional<Product> productOptional = productService.getProductById(productId);
-        if (productOptional.isPresent()){
-            Product product = productOptional.get();
-            if(productService.updateProduct(product, productRequest))
-                return ResponseEntity.ok("Product successfully updated.");
-        }
-        return ResponseEntity.badRequest().body("Could not update product.");
-    }
-
-    @GetMapping("/products/{productId}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long productId){
-        ProductDTO productDTO = productService.getProductDTOById(productId);
-        if (productDTO != null){
-            return ResponseEntity.ok(productDTO);
-        }
-        return ResponseEntity.badRequest().build();
-    }
-
-    @GetMapping("/products")
-    public ResponseEntity<List<ProductDTO>> getAllProducts(){
-        List<ProductDTO> productDTOS = productService.getAllProductDTOS();
-        if (productDTOS != null){
-            return ResponseEntity.ok(productDTOS);
-        }
-        return ResponseEntity.badRequest().build();
+        throw new ApiRequestException("Could not remove sale.");
     }
 
     @DeleteMapping("/products/{productId}")
@@ -102,6 +72,42 @@ public class SaleController {
             productService.deleteProductById(productId);
             return ResponseEntity.ok("Product successfully deleted.");
         }
-        return ResponseEntity.badRequest().build();
+        throw new ApiRequestException("Could not remove product from sale.");
     }
+
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody CreateProductRequest productRequest){
+        if (productRequest == null)
+            throw new ApiRequestException("Illegal product request.");
+        Optional<Product> productOptional = productService.getProductById(productId);
+        if (productOptional.isPresent()){
+            Product product = productOptional.get();
+            if(productRequest.getBasePrice() != null && productRequest.getSerialNumber() != null) {
+                if (productService.updateProduct(product, productRequest))
+                    return ResponseEntity.ok("Product successfully updated.");
+            }
+        }
+        throw new ApiRequestException("Could not update product base price.");
+    }
+
+    @GetMapping("/products/{productId}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long productId){
+        ProductDTO productDTO = productService.getProductDTOById(productId);
+        if (productDTO != null){
+            return ResponseEntity.ok(productDTO);
+        }
+        throw new ApiRequestException("Could not find product.");
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<ProductDTO>> getAllProducts(){
+        List<ProductDTO> productDTOS = productService.getAllProductDTOS();
+        if(productDTOS != null) {
+            if (!productDTOS.isEmpty()) {
+                return ResponseEntity.ok(productDTOS);
+            }
+        }
+        throw new ApiRequestException("There are no products available.");
+    }
+
 }

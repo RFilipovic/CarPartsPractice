@@ -44,7 +44,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers(HttpMethod.GET, "/sale/products").hasRole("CUSTOMER")
+                                .requestMatchers(HttpMethod.GET, "/sale/products").hasAnyRole("CUSTOMER", "SALES")
                                 .requestMatchers(HttpMethod.POST, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.DELETE, "/sale/**").hasRole("SALES")
                                 .requestMatchers(HttpMethod.PUT, "/sale/**").hasRole("SALES")
